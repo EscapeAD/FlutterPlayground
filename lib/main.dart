@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './question.dart';
+import './awnser.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,13 +14,23 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   int _questionsIndex = 0;
   var questions = [
-    'What\'s your favorite colour?',
-    'What\'s your favorite animal?',
+    {
+      'questionText': 'What\'s your favorite colour?',
+      'awnsers': ['Blue', 'Red', 'Black', 'none']
+    },
+    {
+      'questionText': 'What\'s your favorite animal?',
+      'awnsers': ['Dog', 'Cat', 'Bird', 'none']
+    },
+    {
+      'questionText': 'What\'s your favorite movie?',
+      'awnsers': ['Matrix', 'Faceoff', 'Fight Club', 'none']
+    },
   ];
 
   @override
   Widget build(BuildContext context) {
-    void awnserQuestion() {
+    void _awnserQuestion() {
       setState(() {
         _questionsIndex = _questionsIndex + 1 < questions.length ? _questionsIndex + 1 : _questionsIndex;
       });
@@ -30,20 +41,11 @@ class _MyAppState extends State<MyApp> {
           title: Text("Hello World")),
       body: Column(
         children: [
-          Question(questions[_questionsIndex]),
-          RaisedButton(
-              child: Text('anwser 1'),
-              onPressed: awnserQuestion
-          ),
-          RaisedButton(
-              child: Text('anwser 2'),
-              onPressed: () => print('clicked 2')
-          ),
-          RaisedButton(
-              child: Text('anwser 3'),
-              onPressed: () => print('clicked 3')
-          ),
-          Text('$_questionsIndex')
+          Question(questions[_questionsIndex]['questionText']),
+          ...(questions[_questionsIndex]['awnsers'] as List<String>).map((awnser){
+            return Awnser(_awnserQuestion, awnser);
+          }).toList(),
+          Text('Question number: $_questionsIndex')
         ]),
     ));
   }
