@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import './question.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return MyAppState();
+    return _MyAppState();
   }
 }
 
-class MyAppState extends State<MyApp> {
-  int questionsIndex = 0;
+class _MyAppState extends State<MyApp> {
+  int _questionsIndex = 0;
   var questions = [
     'What\'s your favorite colour?',
     'What\'s your favorite animal?',
@@ -20,7 +21,7 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     void awnserQuestion() {
       setState(() {
-        questionsIndex = questionsIndex + 1 < questions.length ? questionsIndex + 1 : questionsIndex;
+        _questionsIndex = _questionsIndex + 1 < questions.length ? _questionsIndex + 1 : _questionsIndex;
       });
       print('update index');
     }
@@ -29,7 +30,7 @@ class MyAppState extends State<MyApp> {
           title: Text("Hello World")),
       body: Column(
         children: [
-          Text(questions[questionsIndex]),
+          Question(questions[_questionsIndex]),
           RaisedButton(
               child: Text('anwser 1'),
               onPressed: awnserQuestion
@@ -42,7 +43,7 @@ class MyAppState extends State<MyApp> {
               child: Text('anwser 3'),
               onPressed: () => print('clicked 3')
           ),
-          Text('$questionsIndex')
+          Text('$_questionsIndex')
         ]),
     ));
   }
