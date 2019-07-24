@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import './question.dart';
-import './awnser.dart';
+import './quiz.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +12,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _questionsIndex = 0;
-  final questions = const [
+  final _questions = const [
     {
       'questionText': 'What\'s your favorite colour?',
       'awnsers': ['Blue', 'Red', 'Black', 'none']
@@ -32,21 +31,19 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     void _awnserQuestion() {
       setState(() {
-        _questionsIndex = _questionsIndex < questions.length ? _questionsIndex + 1 : 0;
+        _questionsIndex = _questionsIndex < _questions.length ? _questionsIndex + 1 : 0;
       });
       print('update index');
     }
     return MaterialApp(home: Scaffold(
       appBar: AppBar(
           title: Text("Hello World Survey!")),
-      body: _questionsIndex < questions.length ? Column(
-        children: [
-          Question(questions[_questionsIndex]['questionText']),
-          ...(questions[_questionsIndex]['awnsers'] as List<String>).map((userChoice){
-            return Awnser(_awnserQuestion, userChoice);
-          }).toList(),
-          Text('Question number: $_questionsIndex')
-        ]) : Center(child: Text('You finish Survey!')),
+      body: _questionsIndex < _questions.length ?
+          Quiz(
+              questions: _questions,
+              questionsIndex: _questionsIndex,
+              awnserQuestion: _awnserQuestion)
+          : Center(child: Text('You finish Survey!')),
     ));
   }
 }
