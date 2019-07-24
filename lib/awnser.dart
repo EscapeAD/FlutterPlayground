@@ -12,7 +12,7 @@ class Awnser extends StatelessWidget {
       width: double.infinity,
       child: RaisedButton(
         color: Colors.blue,
-        child: Text('Awnser 1'),
+        child: Text(awnserText),
         onPressed: selectHandler,
       )
     );
