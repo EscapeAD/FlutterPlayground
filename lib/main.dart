@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './quiz.dart';
+import './result.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,26 +13,28 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _questionsIndex = 0;
+  int _totalScore = 0;
   final _questions = const [
     {
       'questionText': 'What\'s your favorite colour?',
-      'awnsers': ['Blue', 'Red', 'Black', 'none']
+      'awnsers': [{'text':'Blue', 'score': 1 }, {'text':'Pink', 'score': 2 }, {'text':'White', 'score': 4 }, {'text':'Red', 'score': 3 }]
     },
     {
       'questionText': 'What\'s your favorite animal?',
-      'awnsers': ['Dog', 'Cat', 'Bird', 'none']
+      'awnsers': [{'text':'Dog', 'score': 1 }, {'text':'Cat', 'score': 2 }, {'text':'Bird', 'score': 4 }, {'text':'Bug', 'score': 3 }]
     },
     {
       'questionText': 'What\'s your favorite movie?',
-      'awnsers': ['Matrix', 'Faceoff', 'Fight Club', 'none']
+      'awnsers': [{'text':'FaceOff', 'score': 1 }, {'text':'FaceBook', 'score': 2 }, {'text':'Donkey Punch', 'score': 4 }, {'text':'Uhh', 'score': 3 }]
     },
   ];
 
   @override
   Widget build(BuildContext context) {
-    void _awnserQuestion() {
+    void _awnserQuestion(int score) {
       setState(() {
         _questionsIndex = _questionsIndex < _questions.length ? _questionsIndex + 1 : 0;
+        _totalScore += score;
       });
       print('update index');
     }
@@ -43,7 +46,7 @@ class _MyAppState extends State<MyApp> {
               questions: _questions,
               questionsIndex: _questionsIndex,
               awnserQuestion: _awnserQuestion)
-          : Center(child: Text('You finish Survey!')),
+          : Result(_totalScore),
     ));
   }
 }
