@@ -38,6 +38,13 @@ class _MyAppState extends State<MyApp> {
       });
       print('update index');
     }
+    void _resetQuiz () {
+      setState(() {
+        _questionsIndex = 0;
+        _totalScore = 0;
+      });
+      print('update index');
+    }
     return MaterialApp(home: Scaffold(
       appBar: AppBar(
           title: Text("Hello World Survey!")),
@@ -46,7 +53,7 @@ class _MyAppState extends State<MyApp> {
               questions: _questions,
               questionsIndex: _questionsIndex,
               awnserQuestion: _awnserQuestion)
-          : Result(_totalScore),
+          : Result(_totalScore, _resetQuiz),
     ));
   }
 }
